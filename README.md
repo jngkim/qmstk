@@ -4,15 +4,19 @@ collection of utilities, libraries and applications for quantum materials
 simulations (QMS).
 
 ## Working with oneAPI HPC Toolkit docker container
+* [Intel oneAPI Toolkit Containers][https://github.com/intel/oneapi-containers]
 * [Docker Desktop for Mac](oneapi_docker_mac.md)
 * [Docker on ubuntu](oneapi_docker_ubuntu.md)
 * Start docker vm/daemon, open a terminal and start docker: 
     ```
-    $oneapi=amr-registry.caas.intel.com/oneapi/oneapi:hpc-dev-ubuntu18.04
-    $docker pull $oneapi
-    $docker run -it -v ~/workspace:/workspace $oneapi /bin/bash
+    $image=intel/oneapi-hpckit
+    $docker pull "$image"
+    $docker run -it -v ~/workspace:/workspace $image /bin/bash
     ```
-* Open a separate terminal and use `~/workspace` to do usual work: download and edit files.
+* oneAPI docker image does not come with vim. By mounting a workspace
+directory, one can edit and do usual work in a separate terminal. From now on,
+the working directory is `/workspace/qmstk` which is `~/workspace/qmstk` on my Mac.
+
 ### Building common and apps (all in docker container)
 * Set environment using [setenv.sh](setenv.sh)
     ```

@@ -45,7 +45,7 @@ tmpfs            1023420         0   1023420   0% /proc/acpi
 tmpfs            1023420         0   1023420   0% /sys/firmware
 ```
 
-> oneAPI docker image does not come with any editor. By mounting a workspace
+> oneAPI docker image does not come with vim. By mounting a workspace
 directory, one can edit and do usual work in a separate terminal. From now on,
 the working directory is `/workspace/qmstk` which is `~/workspace/qmstk` on my Mac.
 
