@@ -1,7 +1,5 @@
 # oneAPI HPC Toolkit docker on macOS
 
-Jeongnim Kim, DCG/E&G/ECO/NTET, 2019-08-17
-
 Before start, visit these sites and get familiar with oneAPI/Docker.
 * https://docs.docker.com/docker-for-mac/
 * https://gitlab.devtools.intel.com/sip-oneapi/oneapi-containers

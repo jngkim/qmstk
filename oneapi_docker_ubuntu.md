@@ -1,7 +1,5 @@
 # oneAPI HPC Toolkit docker on ububtu
 
-Jeongnim Kim, DCG/E&G/ECO/NTET, 2019-08-19
-
 Before start, visit these sites and get familiar with oneAPI/Docker.
 * https://docs.docker.com/install/linux/docker-ce/ubuntu
 * https://gitlab.devtools.intel.com/sip-oneapi/oneapi-containers

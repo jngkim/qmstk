@@ -4,7 +4,7 @@ collection of utilities, libraries and applications for quantum materials
 simulations (QMS).
 
 ## Working with oneAPI HPC Toolkit docker container
-* [Intel oneAPI Toolkit Containers][https://github.com/intel/oneapi-containers]
+* [Intel oneAPI Toolkit Containers](https://github.com/intel/oneapi-containers)
 * [Docker Desktop for Mac](oneapi_docker_mac.md)
 * [Docker on ubuntu](oneapi_docker_ubuntu.md)
 * Start docker vm/daemon, open a terminal and start docker: 
