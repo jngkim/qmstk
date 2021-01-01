@@ -11,24 +11,20 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-find_package(MPI)
+include(ExternalProject)
 
 set_property(DIRECTORY PROPERTY EP_BASE ${CMAKE_BINARY_DIR}/subprojects)
-
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 message(STATUS "${PROJECT_NAME} staged install: ${STAGED_INSTALL_PREFIX}")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${qmstk_BINARY_DIR}/bin CACHE PATH "Binary directory")
 
-find_package(LibXml2)
-
-#install libraries in stage
+find_package(MPI)
 add_subdirectory(external/hdf5)
-
-include(ExternalProject)
+add_subdirectory(external/libxml2)
 
 ExternalProject_Add(qmcpack-dp
-  DEPENDS phdf5
+  DEPENDS phdf5 libxml2_external
   SOURCE_DIR 
   ${CMAKE_CURRENT_LIST_DIR}/Source/qmcpack
   CMAKE_ARGS 
@@ -37,14 +33,13 @@ ExternalProject_Add(qmcpack-dp
   -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
   -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
   -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}/qmcpack-dp
-  -DLIBXML2_INCLUDE_DIR=${LIBXML2_INCLUDE_DIR}
-  -DLIBXML2_LIBRARY=${LIBXML2_LIBRARY}
   -DENABLE_PHDF5=ON
   -DHDF5_ROOT=${STAGED_INSTALL_PREFIX}
+  -DLibXml2_ROOT=${STAGED_INSTALL_PREFIX}
   )
 
 ExternalProject_Add(qmcpack-sp
-  DEPENDS phdf5
+  DEPENDS phdf5 libxml2_external
   SOURCE_DIR 
   ${CMAKE_CURRENT_LIST_DIR}/Source/qmcpack
   CMAKE_ARGS 
@@ -53,15 +48,14 @@ ExternalProject_Add(qmcpack-sp
   -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
   -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
   -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}/qmcpack-dp
-  -DLIBXML2_INCLUDE_DIR=${LIBXML2_INCLUDE_DIR}
-  -DLIBXML2_LIBRARY=${LIBXML2_LIBRARY}
   -DENABLE_PHDF5=ON
   -DHDF5_ROOT=${STAGED_INSTALL_PREFIX}
+  -DLibXml2_ROOT=${STAGED_INSTALL_PREFIX}
   -DQMC_MIXED_PRECISION=1
   )
 
 ExternalProject_Add(q-e
-  DEPENDS phdf5
+  DEPENDS phdf5 libxml2_external
   SOURCE_DIR
   ${CMAKE_CURRENT_LIST_DIR}/Source/q-e
   CMAKE_ARGS
@@ -73,8 +67,7 @@ ExternalProject_Add(q-e
   -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER}
   -DCMAKE_Fortran_FLAGS=${CMAKE_Fortran_FLAGS}
   -DHDF5_ROOT=${STAGED_INSTALL_PREFIX}
-  -DLIBXML2_INCLUDE_DIR=${LIBXML2_INCLUDE_DIR}
-  -DLIBXML2_LIBRARY=${LIBXML2_LIBRARY}
+  -DLibXml2_ROOT=${STAGED_INSTALL_PREFIX}
   -DHDF5_ROOT=${STAGED_INSTALL_PREFIX}
   -DQE_ENABLE_OPENMP=OFF
   -DQE_ENABLE_HDF5=ON

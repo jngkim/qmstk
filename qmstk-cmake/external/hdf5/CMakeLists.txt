@@ -2,29 +2,28 @@ find_package(HDF5 QUIET)
 
 if(HDF5_FOUND AND HDF5_IS_PARALLEL)
   #  get_property(_loc TARGET hdf5 PROPERTY LOCATION)
-  #  message(STATUS "Found HDF5: ${_loc} (found version ${HDF5_VERSION})")
+   message(STATUS "Found HDF5: ${HDF5_VERSION}")
   add_library(phdf5 INTERFACE)  # dummy
 else()
 
   message(STATUS "Suitable HDF5 could not be located. Downloading and building!")
 
-  include(ExternalProject)
-
-  #  IF(NOT EXISTS ${CMAKE_PROJECT_DIR}/Source/hdf5)
-  #    ExternalProject_Add(hdf5_download
-  #      URL 
-  #      http://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.10.5.tar.gz
-  #      SOURCE_DIR ${CMAKE_PROJECT_DIR}/Source/hdf5
-  #      UPDATE_COMMAND ""
-  #      CONFIGURE_COMMAND ""
-  #      BUILD_COMMAND ""
-  #      INSTALL_COMMAND ""
-  #      )
-  #  else()
-  #    add_library(hdf5_download INTERFACE)  # dummy
-  #  endif()
+  IF(NOT EXISTS ${PROJECT_SOURCE_DIR}/Source/hdf5)
+    ExternalProject_Add(hdf5_download
+      URL 
+      http://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.10.5.tar.gz
+      SOURCE_DIR ${CMAKE_PROJECT_DIR}/Source/hdf5
+      UPDATE_COMMAND ""
+      CONFIGURE_COMMAND ""
+      BUILD_COMMAND ""
+      INSTALL_COMMAND ""
+      )
+  else()
+    add_library(hdf5_download INTERFACE)  # dummy
+  endif()
 
   ExternalProject_Add(phdf5
+    DEPENDS hdf5_download
     SOURCE_DIR ${PROJECT_SOURCE_DIR}/Source/hdf5
     DOWNLOAD_COMMAND ""
     UPDATE_COMMAND ""
